@@ -1,4 +1,4 @@
-# A. 多模型对比 (可选)
+﻿# A. 多模型对比 (可选)
 
 ## 目标
 
@@ -15,8 +15,6 @@
 默认拿一个**更大的同家模型**(Nova Pro)和基线(Nova 2 Lite)比——这是经典的"小模型省钱、大模型质量好"trade-off。在 EC2 的 SSM 终端里:
 
 ```bash
-1
-2
 cd ~/workshop
 bash 12-compare-models.sh
 ```
@@ -24,8 +22,6 @@ bash 12-compare-models.sh
 想指定别的对比模型:
 
 ```bash
-1
-2
 bash 12-compare-models.sh us.amazon.nova-pro-v1:0      # 等价默认值
 bash 12-compare-models.sh us.anthropic.claude-haiku-4-5-20251001-v1:0  # 想试别家也行
 ```

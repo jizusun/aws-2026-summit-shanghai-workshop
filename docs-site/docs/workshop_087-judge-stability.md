@@ -1,4 +1,4 @@
-# B. 评委稳定性 (可选)
+﻿# B. 评委稳定性 (可选)
 
 ## 目标
 
@@ -13,8 +13,6 @@
 在 EC2 的 SSM 终端里(默认取最近一条含检索的对话,连打 3 次):
 
 ```bash
-1
-2
 cd ~/workshop
 bash 13-judge-stability.sh
 ```
@@ -22,17 +20,12 @@ bash 13-judge-stability.sh
 也可指定某条 trace、打更多次:
 
 ```bash
-1
 bash 13-judge-stability.sh <trace-id> 5
 ```
 
 脚本会打印每次的分数,以及均值、标准差、极差,并给出判断:
 
 ```text
-1
-2
-3
-4
   分数: [0.83, 0.85, 0.82]
   均值=0.833  标准差=0.012  极差=0.030
 

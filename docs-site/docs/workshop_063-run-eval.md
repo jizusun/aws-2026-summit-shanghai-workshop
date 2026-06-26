@@ -1,4 +1,4 @@
-# 4.2 运行批量评估
+﻿# 4.2 运行批量评估
 
 ## 目标
 
@@ -15,15 +15,6 @@
 ### Step 1: 获取 runtime 和 evaluator 的 ARN
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
 RT_ARN=$(aws bedrock-agentcore-control list-agent-runtimes --region us-west-2 \
   --query "agentRuntimes[?contains(agentRuntimeName,'hrassistant')].agentRuntimeArn | [0]" \
   --output text)
@@ -40,19 +31,6 @@ MTG_ARN=$(aws bedrock-agentcore-control list-evaluators --region us-west-2 \
 评估的对象是 trace 数据，所以先用 `agentcore invoke` 把三个代表性问题各跑一遍，每条都会产生一条含检索轮次的 trace。每个问题用独立 session：
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
 cd ~/workshop/hrassistant
 
 GOLDEN_QUERIES=(
@@ -88,30 +66,6 @@ done
 Step 5 的 THELMA 要 `--trace-id`、Mind the Goal 要 `--session-id`——这两个 id 不是凭空来的，而是从日志里筛出**含检索轮次**（调用了 `retrieve_hr_policy`）的 trace。用 `retrieve_hr_policy` 作过滤模式，正是为了排除纯 HTTP/工具噪声 trace。把结果直接存进 `ROWS` 变量，供后两步循环使用：
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
 ROWS=$(aws logs filter-log-events --region us-west-2 --log-group-name "aws/spans" \
   --start-time $(( ($(date +%s) - 7200) * 1000 )) \
   --filter-pattern '"execute_tool hr-tools___retrieve_hr_policy"' \
@@ -152,12 +106,6 @@ echo "$ROWS"
 THELMA 是 **TRACE 级**评估器，要对 Step 4 拿到的**每一条 trace**各跑一次——下文「系统级结论」的三行（绩效 / 福利 / 病假）正是这样得到的。**注意必须同时传 `--trace-id` 和 `--session-id`**：只传 `--trace-id` 时，评估框架不走 session 索引，会报 `No session spans found for agent ...`：
 
 ```bash
-1
-2
-3
-4
-5
-6
 for row in $ROWS; do
   tid="${row%%|*}"; sid="${row#*|}"
   echo "─── THELMA trace ${tid:0:16} ───"
@@ -175,11 +123,6 @@ done
 Mind the Goal 是 **SESSION 级**评估器，对 Step 4 去重后的**每个 session** 各跑一次：
 
 ```bash
-1
-2
-3
-4
-5
 for sid in $(for row in $ROWS; do echo "${row#*|}"; done | awk '!seen[$0]++'); do
   echo "─── MtG session ${sid:0:24} ───"
   agentcore run eval --runtime-arn "$RT_ARN" --evaluator-arn "$MTG_ARN" \
@@ -197,24 +140,6 @@ done
 Step 5/6 你跑的每条命令,都回了一坨**原始 JSON**——分数就埋在里面。比如 THELMA 评一条 trace,`--json` 实际返回的是这样(节选):
 
 ```json
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
 {
   "success": true,
   "run": {

@@ -1,4 +1,4 @@
-# 2.6 部署并验证
+﻿# 2.6 部署并验证
 
 ## 目标
 
@@ -7,25 +7,6 @@
 ### Step 1: 配置部署目标
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
 # 确保在项目目录(2.5 创建的 Harness 项目)
 cd ~/workshop/hrassistant
 
@@ -50,7 +31,6 @@ cat agentcore/aws-targets.json
 ### Step 2: 部署
 
 ```bash
-1
 agentcore deploy --yes
 ```
 
@@ -70,7 +50,6 @@ agentcore deploy --yes
 ### Step 3: 启用跨会话 Memory 检索
 
 ```bash
-1
 bash ~/workshop/setup-memory.sh
 ```
 
@@ -80,7 +59,6 @@ bash ~/workshop/setup-memory.sh
 ### Step 4: 验证部署
 
 ```bash
-1
 agentcore status
 ```
 

@@ -1,4 +1,4 @@
-# 2.3 创建 Gateway
+﻿# 2.3 创建 Gateway
 
 ## 目标
 
@@ -11,8 +11,6 @@
 一条命令完成:部署 HR Tools Lambda → 创建 Gateway → 创建指向该 Lambda 的 Target。
 
 ```bash
-1
-2
 cd ~/workshop
 bash 02-create-gateway.sh
 ```
@@ -24,17 +22,6 @@ bash 02-create-gateway.sh
 脚本完成后打印 Gateway 与 Target 详情:
 
 ```text
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
 =========================================
 ✅ Gateway ready!
 =========================================

@@ -1,4 +1,4 @@
-# Phase 3: 首次对话
+﻿# Phase 3: 首次对话
 
 **形式**: 动手实操 | **时长**: 15 分钟
 
@@ -19,14 +19,6 @@ Agent 已经部署完成。在写任何评估之前，先做一件事：**亲眼
 ### Step 1: 向 Agent 提一个 HR 问题
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
 export SESSION_1="session-$(uuidgen)-$(date +%s)"
 
 agentcore invoke --runtime hrassistant \

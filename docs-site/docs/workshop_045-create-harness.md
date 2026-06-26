@@ -1,4 +1,4 @@
-# 2.5 创建并配置 Harness
+﻿# 2.5 创建并配置 Harness
 
 ## 目标
 
@@ -9,31 +9,6 @@
 System Prompt 定义 Agent 的角色和行为规范:
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
 cat > ~/workshop/system-prompt.txt << 'PROMPT'
 You are a professional enterprise HR assistant (你是一位专业的企业HR助手). Your role is to help employees with all HR-related inquiries and operations.
 
@@ -73,26 +48,6 @@ PROMPT
 ### Step 2: 获取预部署的网络配置
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
 export REGION="us-west-2"
 
 SUBNETS=$(aws cloudformation describe-stacks \
@@ -118,17 +73,6 @@ echo "Data Access Point: $DATA_AP_ARN"
 ### Step 3: 创建 Harness
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
 agentcore create --name hrassistant --model-provider bedrock \
   --model-id "us.amazon.nova-2-lite-v1:0" \
   --network-mode VPC \
@@ -161,14 +105,6 @@ cd hrassistant
 `hrgateway` 已在上一节创建,这里通过 ARN 引用(脚本已把 ARN 存到 SSM):
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
 GATEWAY_ARN=$(aws ssm get-parameter \
   --name /app/hr/gateway_arn \
   --query "Parameter.Value" --output text --region "$REGION")
@@ -182,7 +118,6 @@ agentcore add tool --harness hrassistant \
 复制 System Prompt 到项目:
 
 ```bash
-1
 cp ~/workshop/system-prompt.txt app/hrassistant/system-prompt.md
 ```
 
@@ -191,10 +126,6 @@ cp ~/workshop/system-prompt.txt app/hrassistant/system-prompt.md
 把 S3 access point 挂载到 `/mnt/skills`(Skill 文件已在 2.4 上传):
 
 ```bash
-1
-2
-3
-4
 cat app/hrassistant/harness.json | \
   jq --arg arn "$DATA_AP_ARN" \
   '.environment.agentCoreRuntimeEnvironment.filesystemConfigurations = [{"mountPath": "/mnt/skills", "s3FilesAccessPoint": {"accessPointArn": $arn}}]' \
@@ -204,9 +135,6 @@ cat app/hrassistant/harness.json | \
 告知 Harness 可用 Skill 文件的位置:
 
 ```bash
-1
-2
-3
 cat app/hrassistant/harness.json | \
   jq '.skills = ["/mnt/skills/skills/deep-policy-analysis/SKILL.md", "/mnt/skills/skills/leave-calculator/SKILL.md"]' \
   > tmp.json && mv tmp.json app/hrassistant/harness.json
@@ -217,9 +145,6 @@ cat app/hrassistant/harness.json | \
 把 Agent 能用的工具锁定为 hr-tools(防止它绕过 Gateway):
 
 ```bash
-1
-2
-3
 cat app/hrassistant/harness.json | \
   jq '.allowedTools = ["@hr-tools/*"]' > tmp.json && \
   mv tmp.json app/hrassistant/harness.json
@@ -228,7 +153,6 @@ cat app/hrassistant/harness.json | \
 ### Step 7: 确认配置
 
 ```bash
-1
 cat app/hrassistant/harness.json | jq '{model, tools, memory, maxIterations, maxTokens, networkMode, skills, allowedTools, environment}'
 ```
 

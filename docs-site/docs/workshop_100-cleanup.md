@@ -1,4 +1,4 @@
-# 清理资源
+﻿# 清理资源
 
 !!! warning
     如果你使用的是 Workshop Studio 提供的临时账号，Workshop 结束后资源会自动清理——无需手动操作。以下步骤仅适用于自有账号。
@@ -8,8 +8,6 @@
 清理脚本位于仓库的 `static/scripts/` 目录，从该目录运行：
 
 ```bash
-1
-2
 cd static/scripts
 bash 99-cleanup.sh
 ```
@@ -55,10 +53,6 @@ bash 99-cleanup.sh
 清理完成后，确认无残留栈：
 
 ```bash
-1
-2
-3
-4
 aws cloudformation list-stacks \
   --stack-status-filter DELETE_COMPLETE \
   --query "StackSummaries[?contains(StackName,'workshop') || contains(StackName,'hrassistant')].{Name:StackName,Status:StackStatus}" \
@@ -68,9 +62,6 @@ aws cloudformation list-stacks \
 确认 VPC 已彻底删除（应无输出）：
 
 ```bash
-1
-2
-3
 aws ec2 describe-vpcs --region us-west-2 \
   --filters "Name=tag:Name,Values=workshop-harness-vpc" \
   --query "Vpcs[].VpcId" --output text

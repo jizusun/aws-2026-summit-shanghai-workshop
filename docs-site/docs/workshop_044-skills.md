@@ -1,4 +1,4 @@
-# 2.4 配置 Skills
+﻿# 2.4 配置 Skills
 
 ## 目标
 
@@ -11,8 +11,6 @@
 EC2 上预置了两个 Skill 文件,先看看它们长什么样:
 
 ```bash
-1
-2
 cat ~/workshop/skills/deep-policy-analysis/SKILL.md
 cat ~/workshop/skills/leave-calculator/SKILL.md
 ```
@@ -25,19 +23,6 @@ cat ~/workshop/skills/leave-calculator/SKILL.md
 **deep-policy-analysis/SKILL.md**
 
 ```markdown
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
 ---
 name: deep-policy-analysis
 description: Provide detailed analysis of HR policies with cross-references, exceptions, and specific examples
@@ -56,18 +41,6 @@ When user needs detailed policy interpretation, execute these steps:
 **leave-calculator/SKILL.md**
 
 ```markdown
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
 ---
 name: leave-calculator
 description: Calculate leave balances, plan optimal leave schedules, and check eligibility for various leave types
@@ -87,16 +60,6 @@ Help employees plan their leave by:
 **这一步才需要你动手**:执行下面的命令,把上面那两个预置文件上传到 S3(Harness 稍后会从这里挂载它们)。
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
 DATA_BUCKET=$(aws cloudformation describe-stacks \
   --stack-name workshop-infra \
   --query "Stacks[0].Outputs[?OutputKey=='DataBucketName'].OutputValue" \
@@ -112,8 +75,6 @@ aws s3 ls s3://$DATA_BUCKET/skills/ --recursive
 预期输出:
 
 ```text
-1
-2
 skills/deep-policy-analysis/SKILL.md
 skills/leave-calculator/SKILL.md
 ```

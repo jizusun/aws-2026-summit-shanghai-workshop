@@ -1,4 +1,4 @@
-# 5.2 重新评估验证效果
+﻿# 5.2 重新评估验证效果
 
 ## 目标
 
@@ -11,37 +11,6 @@
 运行 5.1 的对话后等约 1-2 分钟，用 4.2 Step 4 的命令从 `aws/spans` 捞出最近 3 条含检索的 trace（即刚跑的 v2 三条），存进 `ROWS`：
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
 RT_ARN=$(aws bedrock-agentcore-control list-agent-runtimes --region us-west-2 \
   --query "agentRuntimes[?contains(agentRuntimeName,'hrassistant')].agentRuntimeArn | [0]" --output text)
 THELMA_ARN=$(aws bedrock-agentcore-control list-evaluators --region us-west-2 \
@@ -82,12 +51,6 @@ echo "$ROWS"
 对 Step 1 拿到的每一条 v2 trace 跑 THELMA（必须同时传 `--session-id` 和 `--trace-id`）：
 
 ```bash
-1
-2
-3
-4
-5
-6
 for row in $ROWS; do
   tid="${row%%|*}"; sid="${row#*|}"
   echo "─── THELMA trace ${tid:0:16} ───"
@@ -99,11 +62,6 @@ done
 ### Step 3: 对 v2 session 逐个跑 Mind the Goal
 
 ```bash
-1
-2
-3
-4
-5
 for sid in $(for row in $ROWS; do echo "${row#*|}"; done | awk '!seen[$0]++'); do
   echo "─── MtG session ${sid:0:24} ───"
   agentcore run eval --runtime-arn "$RT_ARN" --evaluator-arn "$MTG_ARN" \

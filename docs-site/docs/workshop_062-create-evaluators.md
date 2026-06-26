@@ -1,4 +1,4 @@
-# 4.1 创建自定义评估器
+﻿# 4.1 创建自定义评估器
 
 ## 目标
 
@@ -41,29 +41,6 @@
 把评估器源码复制到项目目录,然后逐个注册:
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
 cd ~/workshop/hrassistant
 cp -r ~/workshop/evaluators/thelma_eval evaluators/
 cp -r ~/workshop/evaluators/mtg_eval evaluators/
@@ -99,10 +76,6 @@ cp -r ~/workshop/evaluators/mtg_eval    evaluators/
 ### Step 2: 部署评估器
 
 ```bash
-1
-2
-3
-4
 # 清构建缓存，确保用最新代码
 rm -rf agentcore/.cache/thelma_rag_quality agentcore/.cache/mtg_goal_success
 
@@ -128,19 +101,6 @@ agentcore deploy --yes
 评估器执行角色默认只有 `AWSLambdaBasicExecutionRole`，没有 Bedrock 权限。LLM-as-judge 评估必须能调用模型，否则报 `AccessDenied`。给两个 evaluator 角色补权限：
 
 ```bash
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 cat > /tmp/eval-bedrock-policy.json <<JSON
 {"Version":"2012-10-17","Statement":[{"Effect":"Allow",
@@ -164,8 +124,6 @@ done
 ### Step 4: 确认评估器 ACTIVE
 
 ```bash
-1
-2
 aws bedrock-agentcore-control list-evaluators --region us-west-2 \
   --query "evaluators[?contains(evaluatorId,'thelma')||contains(evaluatorId,'mtg')].{id:evaluatorId,level:level,status:status}"
 ```
