@@ -1,0 +1,1 @@
+/home/ssm-user/workshop/05-setup-memory.sh

@@ -1,0 +1,1 @@
+/home/ssm-user/workshop/01-create-kb.sh
