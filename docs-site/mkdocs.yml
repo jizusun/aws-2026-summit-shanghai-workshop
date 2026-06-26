@@ -1,0 +1,70 @@
+site_name: "Eval-First: 基于 AgentCore 构建企业级 Agent"
+site_description: "Shanghai Summit Agentic Workshop - AWS Bedrock AgentCore"
+site_url: https://example.github.io/workshop
+
+nav:
+  - 概览: index.md
+  - Phase 1 - 为什么 Evaluation 是起点: workshop_010-introduction.md
+  - Getting Started:
+    - 概述: workshop_015-getting-started.md
+    - 获取你的 AWS 环境: workshop_015-access-account.md
+    - 预部署资源: workshop_017-prerequisites.md
+  - Phase 1.5 - 了解 Managed Harness: workshop_030-understand-harness.md
+  - Phase 2 - 创建并部署 Agent:
+    - 概述: workshop_040-create-deploy.md
+    - 2.1 连接并验证环境: workshop_041-connect.md
+    - 2.2 创建知识库: workshop_042-knowledge-base.md
+    - 2.3 创建 Gateway: workshop_043-gateway.md
+    - 2.4 配置 Skills: workshop_044-skills.md
+    - 2.5 创建并配置 Harness: workshop_045-create-harness.md
+    - 2.6 部署并验证: workshop_046-deploy.md
+  - Phase 3 - 首次对话: workshop_050-first-eval.md
+  - Phase 4 - Golden Set 批量评估:
+    - 概述: workshop_060-golden-set-eval.md
+    - 4.0 准备评估环境: workshop_061-eval-env.md
+    - 4.1 创建自定义评估器: workshop_062-create-evaluators.md
+    - 4.2 运行批量评估: workshop_063-run-eval.md
+  - Phase 5 - 优化与验证:
+    - 概述: workshop_070-optimization.md
+    - 5.1 优化 System Prompt: workshop_071-optimize-prompt.md
+    - 5.2 重新评估验证效果: workshop_072-reevaluate.md
+  - Phase 6 - 可观测性与治理: workshop_080-governance.md
+  - 可选延伸:
+    - 概述: workshop_085-optional-labs.md
+    - A. 多模型对比: workshop_086-compare-models.md
+    - B. 评委稳定性: workshop_087-judge-stability.md
+  - 总结: workshop_090-summary.md
+  - 清理资源: workshop_100-cleanup.md
+
+theme:
+  name: zensical
+  language: zh
+  palette:
+    primary: deep orange
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.footer
+    - search.highlight
+    - content.code.copy
+    - content.tooltips
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true

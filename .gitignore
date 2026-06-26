@@ -4,3 +4,5 @@ eval_*.json
 # Python caches
 __pycache__/
 *.pyc
+
+docs-site/site/

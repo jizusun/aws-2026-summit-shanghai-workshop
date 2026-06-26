@@ -1,0 +1,1 @@
+[{"type":"info","header":"一个 Lambda 怎么处理多个工具","html":"<p>HR Tools Lambda 内部根据 Gateway 传来的工具名分发到不同操作(retrieve_hr_policy、check_leave_balance、submit_leave_request、query_salary_info)。一个函数承载多个工具,Gateway 负责路由。</p>"},{"type":"success","header":"","html":"<p>受控通道建好了! Agent 现在能通过 Gateway 检索知识库、执行 HR 操作。下一步为它配置按需加载的 Skills。</p>"}]
