@@ -1,6 +1,6 @@
 site_name: "Eval-First: 基于 AgentCore 构建企业级 Agent"
 site_description: "Shanghai Summit Agentic Workshop - AWS Bedrock AgentCore"
-site_url: https://example.github.io/workshop
+site_url: https://jizusun.github.io/aws-2026-summit-shanghai-workshop
 
 nav:
   - 概览: index.md
